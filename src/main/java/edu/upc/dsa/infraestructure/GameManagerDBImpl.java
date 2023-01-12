@@ -38,6 +38,14 @@ public class GameManagerDBImpl implements GameManager {
         return ret;
     }
 
+    @Override
+    public void updateLanguage(String email, String language) {
+        User user=(User) this.session.getObject(User.class,email);
+        user.setLanguage(language);
+        this.session.update(user);
+        logger.info("User "+email+" speaks in "+language);
+    }
+
     public Boolean userExistsByEmail(String email) {
         List<User> users = getUsers();
         for (User user : users) {
@@ -49,13 +57,13 @@ public class GameManagerDBImpl implements GameManager {
     }
 
     @Override
-    public void registerUser(String userName, String userSurname, String birthDate, String email, String password) throws UserAlreadyExistsException {
+    public void registerUser(String userName, String userSurname, String birthDate, String email, String password,String language) throws UserAlreadyExistsException {
         logger.info("Trying to register the user with information: (" + userName + ", " + userSurname + ", " + birthDate + ", {" + email + ", " + password + "})");
         if (userExistsByEmail(email)) {
             logger.warn("Register not possible, user already exists!");
             throw new UserAlreadyExistsException();
         }
-        User user = new User(userName, userSurname, birthDate, email, password);
+        User user = new User(userName, userSurname, birthDate, email, password,language);
         this.session.save(user);
         logger.info("Register of user with email " + user.getEmail() + " has been successfully done!");
     }

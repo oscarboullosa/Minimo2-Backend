@@ -11,12 +11,13 @@ public class User {
     double coins;
     String email;
     String password;
+    String language;
     public User()
     {
 
     }
 
-    public User(String userName, String userSurname, String userBirth, String email, String password) {
+    public User(String userName, String userSurname, String userBirth, String email, String password,String language) {
         this.userId= RandomId.getId();
         this.userName = userName;
         this.userSurname = userSurname;
@@ -24,6 +25,15 @@ public class User {
         this.coins = 50.0;
         this.email = email;
         this.password = password;
+        this.language=language;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public String getUserId() {

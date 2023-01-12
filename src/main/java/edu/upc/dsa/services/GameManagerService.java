@@ -42,11 +42,11 @@ public class GameManagerService {
     @Path("/user")
     @Consumes({MediaType.APPLICATION_JSON})
     public Response registerUser(UserRegister user) throws UserAlreadyExistsException {
-        if (user.getUserName() == null || user.getUserSurname() == null || user.getUserBirth() == null || user.getEmail() == null || user.getPassword() == null) {
+        if (user.getUserName() == null || user.getUserSurname() == null || user.getUserBirth() == null || user.getEmail() == null || user.getPassword() == null ||user.getLanguage()==null) {
             return Response.status(500).build();
         }
         try {
-            this.gameManager.registerUser(user.getUserName(), user.getUserSurname(), user.getUserBirth(), user.getEmail(), user.getPassword());
+            this.gameManager.registerUser(user.getUserName(), user.getUserSurname(), user.getUserBirth(), user.getEmail(), user.getPassword(),user.getLanguage());
         } catch (UserAlreadyExistsException e) {
             return Response.status(406).build();
         }
@@ -190,6 +190,20 @@ public class GameManagerService {
         GenericEntity <Coins> entity = new GenericEntity<Coins>(newCoins) {  };
         if (newCoins == null) return Response.status(404).entity(entity).build();
         return Response.status(200).entity(entity).build();
+    }
+
+    @PUT
+    @ApiOperation(value="update the language",notes="Updating of language")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successful"),
+            @ApiResponse(code = 500, message = "Error updating")
+    })
+    @Path("/user/{email}/{language}")
+    public Response updateLanguage(@PathParam("email") String email, @PathParam("language") String language){
+        this.gameManager.updateLanguage(email,language);
+
+        return Response.status(200).build();
+
     }
 
     @PUT

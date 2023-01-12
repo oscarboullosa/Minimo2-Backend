@@ -6,13 +6,23 @@ public class UserRegister {
     String userBirth;
     String email;
     String password;
+    String language;
     public UserRegister(){}
-    public UserRegister(String userName,String userSurname,String userBirth,String email,String password) {
+    public UserRegister(String userName,String userSurname,String userBirth,String email,String password,String language) {
         this.userName=userName;
         this.userSurname=userSurname;
         this.userBirth=userBirth;
         this.email=email;
         this.password=password;
+        this.language=language;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public String getUserName() {

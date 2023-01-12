@@ -13,7 +13,8 @@ import java.util.List;
 public interface GameManager {
     /**User*/
     public int numUsers();
-    public void registerUser(String userName, String userSurname, String birthDate, String email, String password) throws UserAlreadyExistsException;
+    public void updateLanguage(String email,String language);
+    public void registerUser(String userName, String userSurname, String birthDate, String email, String password,String language) throws UserAlreadyExistsException;
     public Boolean login(Credentials credentials);
     public List<User> getUsers();
     public double getUserCoins(String email);
